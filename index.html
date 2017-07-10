@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>A Small Firebase App</title>
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style media="screen">
+        html,
+        body {
+            background-color: #feffff;
+            font-size: 16px;
+            color: rgba(0, 0, 0, 0.87);
+            padding: 2rem;
+        }
+        
+        h1,
+        h2 {
+            margin-bottom: 30px;
+            margin-top: 30px;
+        }
+        
+        input {
+            display: block;
+            width: 300px;
+            margin-left: 6%;
+            margin-top: 10px;
+            height: 40px;
+            border: 1px solid rgba(0, 0, 0, 0.2);
+        }
+        
+        input:placeholder-shown {
+            font-weight: bold;
+            font-family: cursive;
+            color: rgba(0, 0, 0, 0.1);
+        }
+        
+        li {
+            font-size: 20px;
+            font-family: sans-serif;
+            list-style-type: none;
+            float: left;
+            margin-left: 5%;
+            margin-top: 30px;
+        }
+        
+        .addNewContact {
+            clear: both;
+            padding-top: 50px;
+        }
+        
+        .editingInput {
+            width: 150px;
+            margin-left: 0%;
+            height: 40px;
+        }
+    </style>
+</head>
+
+<body ng-app="SmallFirebaseApp">
+    <div class="container" ng-controller="ContactCtrl">
+        <h1 class="display-4">Contacts List</h1>
+
+        <section>
+            <h2>Contacts</h2>
+            <ul>
+                <li ng-repeat="contact in contactList track by contact.$id">
+                    <div ng-hide="editing">
+                        {{contact.firstName}} {{contact.lastName}}
+                        <br> {{contact.phone}}
+                        <br> {{contact.email}}
+                        <br> {{contact.birthday}}
+                        <br>
+                    </div>
+                    <form ng-show="editing">
+                        <input type="text" ng-model="contact.firstName" class="editingInput">
+                        <input type="text" ng-model="contact.lastName" class="editingInput">
+                        <input type="text" ng-model="contact.phone" class="editingInput">
+                        <input type="text" ng-model="contact.email" class="editingInput">
+                        <input type="text" ng-model="contact.birthday" class="editingInput">      
+                    </form>
+                    <button type="submit" ng-show="editing" class="btn btn-success" ng-click="saveContact(contact)"><span class="fa fa-save" ng-click="editing=false"></span></button>
+                    <button class="btn btn-success" ng-click="editing=true" ng-hide="editing"><span class="fa fa-pencil"></span></button>
+                    <button class="btn btn-danger deleteBtn" ng-click="removeContact(contact)"><span class="fa fa-trash"></span></button>
+                </li>
+            </ul>
+        </section>
+        <section class="addNewContact">
+            <h2>Add New Contact</h2>
+            <form ng-submit="addContact()">
+                <input type="text" ng-model="newContact.firstName" placeholder="First Name...">
+                <input type="text" ng-model="newContact.lastName" placeholder="Last Name...">
+                <input type="text" ng-model="newContact.phone" placeholder="Phone Number...">
+                <input type="text" ng-model="newContact.email" placeholder="Email Address...">
+                <input type="text" ng-model="newContact.birthday" placeholder="Birthday...">
+                <input type="submit" value="Add" class="btn btn-primary">
+            </form>
+        </section>
+    </div>
+
+
+    <!-- Load angular -->
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.1/angular.min.js"></script>
+    <!-- Load firebase -->
+    <script type="text/javascript" src="https://www.gstatic.com/firebasejs/3.6.6/firebase.js"></script>
+    <!-- Load angularFire -->
+    <script type="text/javascript" src="https://cdn.firebase.com/libs/angularfire/2.3.0/angularfire.min.js"></script>
+    <!-- Load our app -->
+    <script type="text/javascript" src="js/app.module.js"></script>
+</body>
+
+</html>

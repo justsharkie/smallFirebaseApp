@@ -13,9 +13,11 @@ angular
         const dbRef = firebase.database().ref().child('contacts')
         $scope.contactList = $firebaseArray(dbRef)
         this.getBlankContact = () => ({
-            title: '',
-            dueDate: '',
-            isComplete: false
+            firstName: '',
+            lastName: '',
+            phone: '',
+            email: '',
+            birthday: ''
         })
         $scope.newContact = this.getBlankContact()
         $scope.addContact = () => {
