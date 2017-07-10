@@ -25,5 +25,9 @@ angular
             $scope.newContact = this.getBlankContact()
         }
         $scope.saveContact = contact => $scope.contactList.$save(contact)
-        $scope.removeContact = contact => $scope.contactList.$remove(contact)
+        $scope.removeContact = function (contact) {
+            if(confirm('Really delete this contact?')){
+                $scope.contactList.$remove(contact)
+            }
+        }
     })
